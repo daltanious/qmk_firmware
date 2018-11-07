@@ -1,0 +1,4 @@
+cd /c/keebs/qmk_firmware
+pacman -Syu
+pacman -Su
+util/msys2_install.sh
