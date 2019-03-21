@@ -4,7 +4,7 @@
 #include "config_common.h"
 
 #ifdef AUDIO_ENABLE
-    #define STARTUP_SONG SONG(PLANCK_SOUND)
+    #define STARTUP_SONG SONG(PREONIC_SOUND)
     // #define STARTUP_SONG SONG(NO_SOUND)
 
     #define DEFAULT_LAYER_SONGS { SONG(QWERTY_SOUND), \
@@ -25,7 +25,7 @@
 /* enable basic MIDI features:
    - MIDI notes can be sent when in Music mode is on
 */
-                                
+
 #define MIDI_BASIC
 
 /* enable advanced MIDI features:
@@ -40,7 +40,3 @@
 //#define MIDI_TONE_KEYCODE_OCTAVES 2
 
 #endif
-
-#ifndef LIGHT_CONFIG_H
-#define BACKLIGHT_BREATHING
-#endif   

@@ -40,9 +40,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Qwerty
  * ,-----------------------------------------------------------------------------------.
- * | Tab  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |
+ * | Esc  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * | Esc  |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  "   |
+ * | Tab  |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  '   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Enter |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -94,7 +94,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Raise
  * ,-----------------------------------------------------------------------------------.
- * |  DEL |   0  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  | Bksp |
+ * |  DEL |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | Bksp |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |   ~  |   @  |   #  |   &  |   *  |   -  |   +  |   =  |   (  |   )  |   |  |  \   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
@@ -104,10 +104,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_RAISE] = {
-  {KC_DEL, KC_0,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,          KC_7,          KC_8,    KC_9,    KC_BSPC},
-  {KC_GRV,  KC_AT,   KC_HASH, KC_AMPR, KC_ASTR, KC_MINS, KC_PLUS, KC_EQL,        KC_LPRN,       KC_RPRN, KC_PIPE, KC_BSLS},
+  {KC_DEL,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC},
+  {KC_GRV,  KC_AT,   KC_HASH, KC_AMPR, KC_ASTR, KC_MINS, KC_PLUS, KC_EQL,  KC_LPRN, KC_RPRN, KC_PIPE, KC_BSLS},
   {_______, KC_UNDS, KC_DLR,  KC_DQUO, KC_QUOT, KC_COLN, KC_SCLN, KC_LBRC, KC_RBRC, KC_HOME, KC_END,  KC_ENT},
-  {_______, _______, _______, _______, _______, _______, _______, _______,       KC_MNXT,       KC_VOLD, KC_VOLU, KC_MPLY}
+  {_______, _______, _______, _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY}
 }, 
 
 /* Lower
@@ -118,13 +118,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 | #LOK |   1  |   2  |   3  |   +  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |             |      |   0  |   .  |   .  |Enter |
+ * | Reset|      |      |      |      |             |      |   0  |   .  |   .  |Enter |
  * `-----------------------------------------------------------------------------------'
  */
 [_LOWER] = {
-  {KC_DEL,    KC_Q,  KC_UP,  KC_P,  KC_F1,   KC_F2,   KC_F3,   KC_PAST, KC_7, KC_8,   KC_9,   KC_BSPC},
-  {BL_BRTG,  KC_LEFT, KC_DOWN, KC_RIGHT, KC_F4,  KC_F5,  KC_F6,  KC_PSLS, KC_4, KC_5,   KC_6,   KC_MINS},
-  {KC_TRNS, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_NLCK, KC_1, KC_2,   KC_3,   KC_PLUS},
+  {KC_DEL,  KC_Q,    KC_UP,   KC_P,     KC_F1,  KC_F2,  KC_F3,  KC_PAST, KC_7, KC_8,   KC_9,   KC_BSPC},
+  {BL_BRTG, KC_LEFT, KC_DOWN, KC_RIGHT, KC_F4,  KC_F5,  KC_F6,  KC_PSLS, KC_4, KC_5,   KC_6,   KC_MINS},
+  {KC_TRNS, KC_F7,   KC_F8,   KC_F9,    KC_F10, KC_F11, KC_F12, KC_NLCK, KC_1, KC_2,   KC_3,   KC_PLUS},
   {RESET, _______, _______, _______, _______, _______, _______, _______, KC_0, KC_DOT, KC_DOT, KC_ENT}
 },
 
@@ -179,6 +179,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         print("mode just switched to qwerty and this is a huge string\n");
         set_single_persistent_default_layer(_QWERTY);
+        breathing_period_set(5); // May need to play with the value you pass
+        backlight_set(5); // 3 is max by default
       }
       return false;
       break;
